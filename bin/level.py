@@ -18,7 +18,7 @@ class Level(object):
         # platforms[i][3] := derecha
 
         self.platforms = [[SH - 360, SH - 340, 125, 300],
-                          [SH - 360, SH - 340, SW - 300, SW - 125,]]
+                          [SH - 360, SH - 340, SW - 300, SW - 125]]
 
     def draw(self):
         # dibuja piso
