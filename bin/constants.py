@@ -25,6 +25,6 @@ FPS = 60
 
 # variables del juego
 
-GRAVITY = 3.4
+GRAVITY = 0.5
 WALK_SPEED = 5.0
-JUMP_SPEED = 5.0
+JUMP_SPEED = -12.0

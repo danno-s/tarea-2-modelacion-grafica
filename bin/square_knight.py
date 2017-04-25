@@ -14,6 +14,7 @@ os.environ['SDL_VIDEO_CENTERED'] = "1"
 
 # creación de pantalla
 surface = pygame.display.set_mode((SW, SH))
+pygame.display.set_caption("Square Knight")
 
 # carga de assets
 sound = Sounds()
