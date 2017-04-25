@@ -19,7 +19,7 @@ class Player(object):
              (self.width / 2, -self.height / 2),
              (-self.width / 2, -self.height / 2)], center, color,
             pygame_surface=surface)
-        self._sounds = sounds
+        self.sounds = sounds
         self.ground_height = level.get_ground_height()
         self.platforms = level.get_platforms()
 
@@ -50,9 +50,11 @@ class Player(object):
                     if self.center[1] <= platform[1]:
                         self.center[1] = min(self.center[1] + self.y_vel,
                                              platform[0] - self.height / 2)
+                        break
                 else:
                     self.center[1] = min(self.center[1] + self.y_vel,
                                          self.ground_height - self.height / 2)
+                    break
             else:  # subiendo
                 if (
                     self.center[0] > platform[2] - self.width / 2 and
@@ -61,9 +63,11 @@ class Player(object):
                     if self.center[1] >= platform[0]:
                         self.center[1] = max(self.center[1] + self.y_vel,
                                              platform[1] + self.height / 2)
+                        break
                 else:
                     self.center[1] = max(self.center[1] + self.y_vel,
                                          self.height / 2)
+                    break
 
     def move_right(self):
         for plat_index, platform in enumerate(self.platforms):
@@ -106,6 +110,7 @@ class Player(object):
     def jump(self):
         self.y_vel = JUMP_SPEED
         self.jumped = True
+        self.sounds.jump()
 
     def on_ground(self):
         for plat_index, platform in enumerate(self.platforms):

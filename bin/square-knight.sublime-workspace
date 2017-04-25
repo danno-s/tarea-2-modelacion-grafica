@@ -1,0 +1,686 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"on",
+				"on_ground"
+			],
+			[
+				"on_",
+				"on_cieling"
+			],
+			[
+				"platfo",
+				"platform_top"
+			],
+			[
+				"plat",
+				"plat_index"
+			],
+			[
+				"pla",
+				"platform_top"
+			],
+			[
+				"pl",
+				"platform_top"
+			],
+			[
+				"platfom",
+				"platform_top"
+			],
+			[
+				"platf",
+				"platform_height_top"
+			],
+			[
+				"PLayer",
+				"Player"
+			],
+			[
+				"SCREEN",
+				"SCREEN_WIDTH"
+			],
+			[
+				"screen",
+				"SCREEN_WIDTH"
+			],
+			[
+				"scree",
+				"SCREEN_WIDTH"
+			],
+			[
+				"SCREE",
+				"SCREEN_WIDTH"
+			],
+			[
+				"_",
+				"_surface"
+			],
+			[
+				"SCRE",
+				"SCREEN_HEIGHT"
+			],
+			[
+				"SCER",
+				"SCREEN_HEIGHT"
+			],
+			[
+				"dama",
+				"_damage"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "square_knight.py",
+			"settings":
+			{
+				"buffer_size": 1107,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "player.py",
+			"settings":
+			{
+				"buffer_size": 5536,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "level.py",
+			"settings":
+			{
+				"buffer_size": 1459,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "sounds.py",
+			"settings":
+			{
+				"buffer_size": 584,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "constants.py",
+			"settings":
+			{
+				"buffer_size": 456,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 357.0,
+		"last_filter": "term",
+		"selected_items":
+		[
+			[
+				"term",
+				"Terminal: Open"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"sl set",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"ter",
+				"Terminal: Open"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"git ",
+				"Git: Commit"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Enable Package"
+			],
+			[
+				"pcip",
+				"Package Control: Install Package"
+			],
+			[
+				"pclp",
+				"Package Control: List Packages"
+			],
+			[
+				"gg set",
+				"Preferences: GitGutter Settings"
+			],
+			[
+				"pcdp",
+				"Package Control: Disable Package"
+			],
+			[
+				"build",
+				"Build With: JavaC"
+			],
+			[
+				"boxy u",
+				"Boxy Theme: Configuration"
+			],
+			[
+				"pce",
+				"Package Control: Enable Package"
+			],
+			[
+				"pcd",
+				"Package Control: Disable Package"
+			],
+			[
+				"mark",
+				"SublimeLinter: Choose Mark Style"
+			],
+			[
+				"show",
+				"SublimeLinter: Show Errors on Save"
+			],
+			[
+				"box",
+				"Boxy Theme: Configuration"
+			],
+			[
+				"sllint",
+				"SublimeLinter: Enable Linter"
+			],
+			[
+				"mode",
+				"SublimeLinter: Choose Lint Mode"
+			],
+			[
+				"sltog",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"slel",
+				"SublimeLinter: Enable Linter"
+			],
+			[
+				"sldl",
+				"SublimeLinter: Disable Linting"
+			],
+			[
+				"pcrm",
+				"Package Control: Remove Package"
+			],
+			[
+				"sskin",
+				"UI: Select Skin"
+			],
+			[
+				"pcrp",
+				"Package Control: Remove Package"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"commi\t",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"gg commi",
+				"GitGutter: Compare Against Commit"
+			],
+			[
+				"gg",
+				"GitGutter: Compare Against Branch"
+			],
+			[
+				"pcr",
+				"Package Control: Remove Package"
+			],
+			[
+				"boxyconfi",
+				"Boxy Theme: Configuration"
+			],
+			[
+				"boxy",
+				"Boxy Theme: Configuration"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Chapter"
+			],
+			[
+				"snippet sec\t",
+				"Snippet: Section"
+			]
+		],
+		"width": 398.0
+	},
+	"console":
+	{
+		"height": 154.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica/bin"
+	],
+	"file_history":
+	[
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica/bin/centered_figure.py",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica/bin/square-knight.py",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica/bin/sounds",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-modelacion-grafica/bin/square-knight",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/SideBarEnhancements/Default (Windows).sublime-keymap",
+		"/C/Users/Daniel/GitHub Repos/tarea-1-mate-discreta/informe/main.tex",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/README.md",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/archivo1.py",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/archivo2.java",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/archivo4.c",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/archivo3",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/Tarea2_CC3001_17.pdf",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/Expand.java",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/test2",
+		"/C/Users/Daniel/GitHub Repos/tarea-2-algoritmos/codigo/test"
+	],
+	"find":
+	{
+		"height": 48.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"break",
+			"SPEED",
+			"GRAVITY",
+			"self.vel",
+			"GRAVITY",
+			"GRAVITY[1]",
+			"self.platforms[0]",
+			"0",
+			"platform",
+			"max",
+			"plat",
+			"suelo",
+			"    def get_plat_left(self):\n        return self.platform_left",
+			"platform_x_right",
+			"platform_x_left",
+			"platform_height_bottom",
+			"platform_height_top",
+			"\n    def get_plat_height_top(self):\n        return self.platform_height_top",
+			"0",
+			"screen_height",
+			"SCREEN_WIDTH",
+			"SCREEN_",
+			"equation"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"min",
+			"platform",
+			"SH",
+			"SW"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "square_knight.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								571,
+								571
+							]
+						],
+						"settings":
+						{
+							"git_gutter_enabled": true,
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "player.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5536,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1509,
+								1509
+							]
+						],
+						"settings":
+						{
+							"git_gutter_enabled": true,
+							"open_with_edit": true,
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "level.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1459,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								937
+							]
+						],
+						"settings":
+						{
+							"git_gutter_enabled": true,
+							"open_with_edit": true,
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "sounds.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 584,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								584,
+								584
+							]
+						],
+						"settings":
+						{
+							"git_gutter_enabled": true,
+							"open_with_edit": true,
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "constants.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 456,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								419,
+								419
+							]
+						],
+						"settings":
+						{
+							"git_gutter_enabled": true,
+							"open_with_edit": true,
+							"rulers":
+							[
+								80
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 42.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "square-knight.sublime-project",
+	"replace":
+	{
+		"height": 90.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 190.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
