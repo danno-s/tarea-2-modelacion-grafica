@@ -3,10 +3,10 @@
 import pygame
 import os
 from pygame.locals import *
-from sounds import Sounds
 from constants import *
+from entities import *
+from sounds import Sounds
 from level import Level
-from player import Player
 
 # inicializaciones
 pygame.init()
@@ -18,7 +18,7 @@ pygame.display.set_caption("Square Knight")
 
 # carga de assets
 sound = Sounds()
-level = Level(surface)
+level = Level(surface, COLOR_BROWN)
 
 # carga de modelos
 player = Player(surface, sounds=sound, level=level)
