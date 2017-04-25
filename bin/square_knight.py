@@ -44,11 +44,11 @@ while True:
     if keys[K_LEFT]:
         player.move_left()
 
-    if keys[K_z]:
+    if keys[K_z] and player.on_ground():
         player.jump()
 
     # actualiza modelos
-    player.fall()
+    player.update_y()
 
     # pinta fondo
     surface.fill(COLOR_SKY)

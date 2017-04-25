@@ -8,6 +8,7 @@ class Player(object):
     def __init__(self, surface, center=[SW / 2, SH / 2], color=COLOR_GREY,
                  sounds=None, level=None):
         self.center = center
+        self.y_vel = 0
         self.hp = 3
         self.height = 50
         self.width = 30
@@ -25,7 +26,7 @@ class Player(object):
         # dibuja al jugador en pantalla
         self.figure.draw()
 
-    def fall(self):
+    def update_y(self):
         # hace que el jugador caiga por la gravedad, con una implementación
         # rudimentaria de colisión
         for plat_index, platform in enumerate(self.platforms):
@@ -87,4 +88,4 @@ class Player(object):
         print self.center[0]
 
     def jump(self):
-        
+        self.vel = JUMP_SPEED*-1
