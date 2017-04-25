@@ -44,6 +44,9 @@ while True:
     if keys[K_LEFT]:
         player.move_left()
 
+    if keys[K_z]:
+        player.jump()
+
     # actualiza modelos
     player.fall()
 

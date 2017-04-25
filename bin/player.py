@@ -85,3 +85,6 @@ class Player(object):
         self.center[0] = max(self.center[0] - SPEED, 0 + self.width / 2)
 
         print self.center[0]
+
+    def jump(self):
+        
