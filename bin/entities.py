@@ -46,7 +46,7 @@ class Entity(object):
 
         # hace que la entidad caiga por la gravedad, con una implementación
         # rudimentaria de colisión
-        for plat_index, platform in enumerate(self.platforms):
+        for platform in self.platforms:
             if self.y_vel >= 0 and platform.is_below(self):
                 self.center[1] = min(self.center[1] + self.y_vel,
                                      platform.top - self.height / 2)
@@ -57,7 +57,7 @@ class Entity(object):
                 break
 
     def move_right(self):
-        for plat_index, platform in enumerate(self.platforms):
+        for platform in self.platforms:
             # se salta las plataformas a la izquierda pues el movimiento no es
             # en esa dirección
             if platform.is_left(self):
@@ -73,13 +73,9 @@ class Entity(object):
         self.center[0] = min(self.center[0] + self.speed, SW - self.width / 2)
 
     def move_left(self):
-        for plat_index, platform in enumerate(reversed(self.platforms)):
+        for platform in reversed(self.platforms):
             # se salta las plataformas a la derecha pues el movimiento no es
             # en esa dirección
-
-            print("plataforma:" + str(plat_index))
-            print(platform.is_right(self))
-
             if platform.is_right(self):
                 continue
 
@@ -100,7 +96,7 @@ class Entity(object):
 
     def on_ground(self):
         # verifica si la entidad esta en el piso
-        for plat_index, platform in enumerate(self.platforms):
+        for platform in self.platforms:
             if(
                 platform.is_below(self) and
                 self.center[1] + self.height / 2 == platform.top
@@ -111,7 +107,7 @@ class Entity(object):
 
     def on_cieling(self):
         # verifica si la entidad esta en el techo
-        for plat_index, platform in enumerate(self.platforms):
+        for platform in self.platforms:
             if(
                 platform.is_above(self) and
                 self.center[1] - self.height / 2 == platform.bottom

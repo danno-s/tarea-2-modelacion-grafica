@@ -3,7 +3,8 @@
 
 
 class Platform(object):
-    def __init__(self, top, bottom, left, right):
+    def __init__(self, top, bottom, left, right, name=None):
+        self.name = name
         self.top = top
         self.bottom = bottom
         self.left = left
