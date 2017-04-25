@@ -1,4 +1,4 @@
-#coding: UTF-8
+# coding: UTF-8
 # clase que define al jugador
 from centered_figure import CenteredFigure
 from constants import *
@@ -19,7 +19,7 @@ class Player(object):
              (self.width / 2, -self.height / 2),
              (-self.width / 2, -self.height / 2)], center, color,
             pygame_surface=surface)
-        self._sounds = sounds
+        self.sounds = sounds
         self.ground_height = level.get_ground_height()
         self.platforms = level.get_platforms()
 
@@ -33,7 +33,7 @@ class Player(object):
         elif self.on_ground() and self.jumped and self.y_vel >= 0:
             self.y_vel = 0
             self.jumped = False
-        elif self.on_cieling() and self.jumped:
+        elif self.on_cieling() and self.jumped and self.y_vel < 0:
             self.y_vel = 0
             self.jumped = False
         else:
@@ -47,12 +47,14 @@ class Player(object):
                     self.center[0] > platform[2] - self.width / 2 and
                     self.center[0] < platform[3] + self.width / 2
                 ):
-                    if self.center[1] <= platform[1]:
+                    if self.center[1] <= platform[1] - self.height / 2:
                         self.center[1] = min(self.center[1] + self.y_vel,
                                              platform[0] - self.height / 2)
+                        continue
                 else:
                     self.center[1] = min(self.center[1] + self.y_vel,
                                          self.ground_height - self.height / 2)
+                    continue
             else:  # subiendo
                 if (
                     self.center[0] > platform[2] - self.width / 2 and
@@ -61,9 +63,11 @@ class Player(object):
                     if self.center[1] >= platform[0]:
                         self.center[1] = max(self.center[1] + self.y_vel,
                                              platform[1] + self.height / 2)
+                        continue
                 else:
                     self.center[1] = max(self.center[1] + self.y_vel,
                                          self.height / 2)
+                    continue
 
     def move_right(self):
         for plat_index, platform in enumerate(self.platforms):
@@ -104,17 +108,20 @@ class Player(object):
         self.center[0] = max(self.center[0] - WALK_SPEED, 0 + self.width / 2)
 
     def jump(self):
+        self.sounds.jump()
         self.y_vel = JUMP_SPEED
         self.jumped = True
 
     def on_ground(self):
         for plat_index, platform in enumerate(self.platforms):
             if (
-                    self.center[0] > platform[2] - self.width / 2 and
-                    self.center[0] < platform[3] + self.width / 2
+                self.center[0] > platform[2] - self.width / 2 and
+                self.center[0] < platform[3] + self.width / 2
             ):
-                if (self.center[1] >= platform[0] - self.height / 2 and
-                   self.center[1] <= platform[1] - self.height / 2):
+                if (
+                    self.center[1] >= platform[0] - self.height / 2 and
+                    self.center[1] <= platform[1] - self.height / 2
+                ):
                     return True
                 else:
                     break
