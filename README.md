@@ -1,1 +1,1 @@
-# tarea-2-modelación-grfica
+# tarea-2-modelacion-grafica
