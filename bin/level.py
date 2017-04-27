@@ -17,8 +17,8 @@ class Level(object):
 
         self.platforms = [Platform(SH - 180, SH - 160, 125, 300),
                           Platform(SH - 180, SH - 160, SW - 300, SW - 125),
-                          Platform(SH - 150, SH, 0, SW),  # floor
-                          Platform(-10, 0, 0, SW)]
+                          Platform(SH - 150, SH, 0, SW, "floor"),
+                          Platform(-10, 0, 0, SW, "cieling")]
 
     def draw(self):
         for plat_index, platform in enumerate(self.platforms):

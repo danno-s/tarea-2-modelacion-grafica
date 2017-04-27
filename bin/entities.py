@@ -60,32 +60,38 @@ class Entity(object):
         for platform in self.platforms:
             # se salta las plataformas a la izquierda pues el movimiento no es
             # en esa dirección
-            if platform.is_left(self):
+            if not platform.is_right(self):
                 continue
 
             if platform.is_right(self) and platform.is_beside(self):
                 self.center[0] = min(self.center[0] + self.speed,
                                      platform.left - self.width / 2)
+                print("right loop sum")
                 return
             else:
                 break
 
+        print("right base sum")
         self.center[0] = min(self.center[0] + self.speed, SW - self.width / 2)
 
     def move_left(self):
         for platform in reversed(self.platforms):
+            print(str(platform))
+            print(platform.is_left(self))
             # se salta las plataformas a la derecha pues el movimiento no es
             # en esa dirección
-            if platform.is_right(self):
+            if not platform.is_left(self):
                 continue
 
             if platform.is_left(self) and platform.is_beside(self):
                 self.center[0] = max(self.center[0] - self.speed,
                                      platform.right + self.width / 2)
+                print("left loop sum")
                 return
             else:
                 break
 
+        print("left base sum")
         self.center[0] = max(self.center[0] - self.speed, 0 + self.width / 2)
 
     def jump(self):

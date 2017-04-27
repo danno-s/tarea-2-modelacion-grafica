@@ -26,9 +26,14 @@ player = Player(surface, sounds=sound, level=level)
 # reloj del juego
 clock = pygame.time.Clock()
 
+counter = 0
+
 # loop principal
 while True:
 
+    print(counter)
+    counter += 1
+    
     # setea reloj
     clock.tick(FPS)
 
