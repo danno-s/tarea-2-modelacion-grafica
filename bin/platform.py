@@ -3,6 +3,7 @@
 
 
 class Platform(object):
+    def __init__(self, top, bottom, left, right, tag=""):
         self.tag = tag
         self.top = top
         self.bottom = bottom
