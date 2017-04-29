@@ -87,6 +87,8 @@ while True:
         if enemy.is_hit():
             enemy.recieve_damage()
             enemy.get_i_frames()
+            if player.sword.get_atk_direction() == "down":
+                player.jump()
 
         if enemy.get_hp() <= 0:
             enemies.remove(enemy)

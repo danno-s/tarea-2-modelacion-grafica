@@ -111,5 +111,8 @@ class Sword(object):
     def is_recoiling(self):
         return self.atk_inst.is_recoiling()
 
+    def get_atk_direction(self):
+        return self.atk_inst.get_direction()
+
     def tick(self):
         self.atk_inst.tick()
