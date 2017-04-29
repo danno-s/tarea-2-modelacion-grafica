@@ -26,6 +26,7 @@ GNU General Public License for more details.
 # Imports
 from shapely.geometry import Polygon
 import pygame
+from math import radians, cos, sin
 
 
 class CenteredFigure(object):
@@ -123,7 +124,27 @@ class CenteredFigure(object):
         """
         Scale the figure.
 
-        :param factor: 
-        :return: 
+        :param factor:
+        :return:
         """
         self._points = [(x * factor, y * factor) for x, y in self._points]
+
+    def rotate(self, angle):
+        """
+        Rotate the figure by angle degrees
+
+        :param angle:
+        :return:
+        """
+        angleRad = radians(angle)
+        self._points = [(x * cos(angleRad) - y * sin(angleRad),
+                         x * sin(angleRad) + y * cos(angleRad))
+                        for x, y in self._points]
+
+    def get_surface(self):
+        """
+        Return pygame surface
+
+        :return:
+        """
+        return self._surface

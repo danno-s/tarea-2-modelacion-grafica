@@ -2,11 +2,13 @@
 # clase que define a la entidad
 from centered_figure import CenteredFigure
 from constants import *
+from sounds import Sounds
+from weapons import *
 
 
 class Entity(object):
     def __init__(self, surface, center=[SW / 2, SH / 2], color=None,
-                 sounds=None, level=None, stats=None):
+                 level=None, sounds=None, stats=None):
 
         self.center = center
         self.y_vel = 0
@@ -17,8 +19,8 @@ class Entity(object):
         self.hp = stats[2]
         self.speed = stats[3]
 
-        self.platforms = level.get_platforms()
         self.sounds = sounds
+        self.platforms = level.get_platforms()
         self.figure = CenteredFigure(
             [(-self.width / 2, self.height / 2),
              (self.width / 2, self.height / 2),
@@ -57,6 +59,8 @@ class Entity(object):
                 break
 
     def move_right(self):
+        if self is Player:
+            self.last_move = "right"
         for platform in self.platforms:
             # se salta las plataformas a la izquierda pues el movimiento no es
             # en esa dirección
@@ -66,18 +70,15 @@ class Entity(object):
             if platform.is_right(self) and platform.is_beside(self):
                 self.center[0] = min(self.center[0] + self.speed,
                                      platform.left - self.width / 2)
-                print("right loop sum")
                 return
             else:
                 break
-
-        print("right base sum")
         self.center[0] = min(self.center[0] + self.speed, SW - self.width / 2)
 
     def move_left(self):
+        if self is Player:
+            self.last_move = "left"
         for platform in reversed(self.platforms):
-            print(str(platform))
-            print(platform.is_left(self))
             # se salta las plataformas a la derecha pues el movimiento no es
             # en esa dirección
             if not platform.is_left(self):
@@ -86,12 +87,10 @@ class Entity(object):
             if platform.is_left(self) and platform.is_beside(self):
                 self.center[0] = max(self.center[0] - self.speed,
                                      platform.right + self.width / 2)
-                print("left loop sum")
                 return
             else:
                 break
 
-        print("left base sum")
         self.center[0] = max(self.center[0] - self.speed, 0 + self.width / 2)
 
     def jump(self):
@@ -126,33 +125,59 @@ class Entity(object):
 # entidad controlada por el jugador
 class Player(Entity):
     def __init__(self, surface, center=[SW / 2, SH / 2], color=COLOR_GREY,
-                 sounds=None, level=None, hp=5, stats=[PLAYER_HEIGHT,
-                 PLAYER_WIDTH, PLAYER_HP, PLAYER_WALK_SPEED]):
+                 level=None, sounds=None, stats=[PLAYER_HEIGHT,
+                 PLAYER_WIDTH, PLAYER_HP, PLAYER_WALK_SPEED,
+                 PLAYER_SWING_SPEED]):
 
+        # variables relacionadas con el estado
         self.center = center
         self.y_vel = 0
         self.jumped = False
+        self.last_move = "right"
 
+        # variables relacionadas con stats
         self.height = stats[0]
         self.width = stats[1]
         self.hp = stats[2]
         self.speed = stats[3]
+        self.swing = stats[4]
 
-        self.platforms = level.get_platforms()
+        # variables que almacenan propiedades de la entidad
         self.sounds = sounds
+        self.platforms = level.get_platforms()
         self.figure = CenteredFigure(
             [(-self.width / 2, self.height / 2),
              (self.width / 2, self.height / 2),
              (self.width / 2, -self.height / 2),
              (-self.width / 2, -self.height / 2)], center, color,
             pygame_surface=surface)
+        self.sword = Sword(self)
 
-        self.counter = 0
+        self.counter = 0  # debugging purposes
+
+    def attack(self, direction):
+        # Sounds.attack()
+        self.sword.attack(direction)
+
+    def draw(self):
+        # dibuja al jugador y su espada si esta atacando en pantalla
+        self.figure.draw()
+        if self.is_attacking():
+            self.sword.draw()
+
+    def is_attacking(self):
+        return self.sword.is_attacking()
+
+    def get_last_move(self):
+        return self.last_move
+
+    def tick(self):
+        self.sword.tick()
 
 
 class Enemy(Entity):
     def __init__(self, surface, center=[SW / 2, SH / 2], color=COLOR_GREY,
-                 sounds=None, level=None, hp=5, stats=[ENEMY_HEIGHT,
+                 level=None, sounds=None, stats=[ENEMY_HEIGHT,
                  ENEMY_WIDTH, ENEMY_HP, ENEMY_WALK_SPEED]):
 
         self.center = center
@@ -165,7 +190,6 @@ class Enemy(Entity):
         self.speed = stats[3]
 
         self.platforms = level.get_platforms()
-        self.sounds = sounds
         self.figure = CenteredFigure(
             [(-self.width / 2, self.height / 2),
              (self.width / 2, self.height / 2),

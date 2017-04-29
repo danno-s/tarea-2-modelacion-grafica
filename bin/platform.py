@@ -3,7 +3,7 @@
 
 
 class Platform(object):
-    def __init__(self, top, bottom, left, right, tag=""):
+    def __init__(self, top, bottom, left, right, tag="Untagged"):
         self.tag = tag
         self.top = top
         self.bottom = bottom
@@ -47,4 +47,4 @@ class Platform(object):
         return False
 
     def __str__(self):
-        return self.tag
+        return self.tag + " platform"

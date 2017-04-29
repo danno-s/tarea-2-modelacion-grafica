@@ -8,16 +8,14 @@ from constants import *
 class Level(object):
     def __init__(self, surface, color=COLOR_BROWN):
         self._surface = surface
-
         self.color = color
-
         # se genera una plataforma para cada plataforma, valga la redundancia,
         # y luego se define una plataforma para el suelo y otra para el techo,
         # para evitar la trivialidad de algunas funciones
 
-        self.platforms = [Platform(SH - 180, SH - 160, 125, 300),
-                          Platform(SH - 180, SH - 160, SW - 300, SW - 125),
-                          Platform(SH - 150, SH, 0, SW, "floor"),
+        self.platforms = [Platform(SH - 340, SH - 320, 250, 425),
+                          Platform(SH - 340, SH - 320, SW - 425, SW - 250),
+                          Platform(SH - 100, SH, 0, SW, "floor"),
                           Platform(-10, 0, 0, SW, "cieling")]
 
     def draw(self):
