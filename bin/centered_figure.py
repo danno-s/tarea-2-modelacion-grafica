@@ -88,6 +88,8 @@ class CenteredFigure(object):
         :type figure: CenteredFigure
         :return:
         """
+        if(figure is None):
+            return False
         assert isinstance(figure, CenteredFigure), \
             'Figure must be CenteredFigure'
 
@@ -140,6 +142,9 @@ class CenteredFigure(object):
         self._points = [(x * cos(angleRad) - y * sin(angleRad),
                          x * sin(angleRad) + y * cos(angleRad))
                         for x, y in self._points]
+
+    def offset(self, offset):
+        self._points = [(x + offset[0], y + offset[1]) for x, y in self._points]
 
     def get_surface(self):
         """

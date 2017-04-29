@@ -15,7 +15,7 @@ class Level(object):
 
         self.platforms = [Platform(SH - 340, SH - 320, 250, 425),
                           Platform(SH - 340, SH - 320, SW - 425, SW - 250),
-                          Platform(SH - 100, SH, 0, SW, "floor"),
+                          Platform(SH - 100, SH, -100, SW + 100, "floor"),
                           Platform(-10, 0, 0, SW, "cieling")]
 
     def draw(self):

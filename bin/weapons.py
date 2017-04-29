@@ -33,19 +33,12 @@ class Attack(object):
     def can_attack(self):
         return not (self.active or self.recoil)
 
-    def set_direction(self, direction):
-        self.direction = direction
-
-    def get_direction(self, direction):
+    def get_direction(self):
         return self.direction
 
     def start_attack(self, direction):
         self.active = True
         self.direction = direction
-
-    def sword_stop(self):
-        return False
-
 
 # clase que representa una espada
 class Sword(object):
@@ -53,24 +46,58 @@ class Sword(object):
         self.width = SWORD_WIDTH
         self.height = SWORD_HEIGHT
         self.color = COLOR_RED
-        self.x_offset = (self.width + player.width)/2
-        self.y_offset = (self.width + player.height)/2
+        self.x_offset = (self.width + player.width) / 2
+        self.y_offset = (self.width + player.height) / 2
         self.center = player.center
-        self.center_backup = [player.center[0], player.center[1]]
-        self.figure = CenteredFigure(
+        self.current_figure = None
+        self.figure_right = CenteredFigure(
             [(-self.width / 2, self.height / 2),
              (self.width / 2, 0),
              (-self.width / 2, -self.height / 2)], self.center, self.color,
-             pygame_surface=player.figure.get_surface())
-        self.figure_backup = self.figure
+            pygame_surface=player.figure.get_surface())
+        self.figure_right.offset([self.x_offset, 0])
+        self.figure_up = CenteredFigure(
+            [(-self.height / 2, self.width / 2),
+             (0, -self.width / 2),
+             (self.height / 2, self.width / 2)], self.center, self.color,
+            pygame_surface=player.figure.get_surface())
+        self.figure_up.offset([0, -self.y_offset])
+        self.figure_left = CenteredFigure(
+            [(self.width / 2, self.height / 2),
+             (self.width / 2, -self.height / 2),
+             (-self.width / 2, 0)], self.center, self.color,
+            pygame_surface=player.figure.get_surface())
+        self.figure_left.offset([-self.x_offset, 0])
+        self.figure_down = CenteredFigure(
+            [(-self.height / 2, -self.width / 2),
+             (self.height / 2, -self.width / 2),
+             (0, self.width / 2)], self.center, self.color,
+            pygame_surface=player.figure.get_surface())
+        self.figure_down.offset([0, self.y_offset])
         self.atk_inst = Attack(player)
 
         self.damage = SWORD_DAMAGE
 
     def draw(self):
-        if self.is_attacking:
-            self.set_orientation(self.atk_inst.direction)
-        self.figure.draw()
+        if self.is_active() and not self.is_recoiling():
+            direction = self.atk_inst.get_direction()
+            if direction == "up":
+                self.figure_up.draw()
+                self.current_figure = self.figure_up
+                return
+            if direction == "left":
+                self.figure_left.draw()
+                self.current_figure = self.figure_left
+                return
+            if direction == "down":
+                self.figure_down.draw()
+                self.current_figure = self.figure_down
+                return
+            if direction == "right":
+                self.figure_right.draw()
+                self.current_figure = self.figure_right
+        else:
+            self.current_figure = None
 
     def attack(self, direction):
         self.atk_inst.start_attack(direction)
@@ -78,25 +105,11 @@ class Sword(object):
     def can_attack(self):
         return self.atk_inst.can_attack()
 
-    def is_attacking(self):
-        return self.atk_inst.is_active() or self.atk_inst.is_recoiling()
+    def is_active(self):
+        return self.atk_inst.is_active()
 
-    def set_orientation(self, orientation):
-        if orientation == "right":
-            self.center[0] += self.x_offset
-        elif orientation == "up":
-            self.figure.rotate(90)
-            self.center[1] -= self.y_offset
-        elif orientation == "left":
-            self.figure.rotate(180)
-            self.center[0] -= self.x_offset
-        elif orientation == "down":
-            self.figure.rotate(-90)
-            self.center[1] += self.y_offset
-
-    def reset_orientation(self):
-        self.center = self.center_backup
-        self.figure = self.figure_backup
+    def is_recoiling(self):
+        return self.atk_inst.is_recoiling()
 
     def tick(self):
         self.atk_inst.tick()
