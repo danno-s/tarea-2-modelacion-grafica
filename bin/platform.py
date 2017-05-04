@@ -46,5 +46,15 @@ class Platform(object):
             return True
         return False
 
+    def intersects(self, entity):
+        if (
+            entity.center[0] > self.left - entity.width / 2 and
+            entity.center[0] < self.right + entity.width / 2 and
+            entity.center[1] > self.top - entity.height / 2 and
+            entity.center[1] < self.bottom + entity.height / 2
+        ):
+            return True
+        return False
+
     def __str__(self):
         return self.tag + " platform"

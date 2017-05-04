@@ -90,10 +90,10 @@ class Entity(object):
 
         self.center[0] = max(self.center[0] - self.speed, 0 + self.width / 2)
 
-    def jump(self):
+    def jump(self, jumpspeed):
         # hace que la entidad salte y reproduzca un sonido
         self.sounds.jump()
-        self.y_vel = JUMP_SPEED
+        self.y_vel = jumpspeed
         self.jumped = True
 
     def on_ground(self):
@@ -189,6 +189,9 @@ class Player(Entity):
             return True
         return False
 
+    def get_hp(self):
+        return self.hp
+
 
 class Enemy(Entity):
     def __init__(self, surface, color=COLOR_BLACK,
@@ -221,12 +224,12 @@ class Enemy(Entity):
         self.i_frames = 0
 
     def is_left(self, player):
-        if self.center[0] + self.width / 2 < player.center[0] - player.width / 2:
+        if self.center[0] + self.width / 2 < player.center[0]:
             return True
         return False
 
     def is_right(self, player):
-        if self.center[0] - self.width / 2 > player.center[0] + player.width / 2:
+        if self.center[0] - self.width / 2 > player.center[0]:
             return True
         return False
 
