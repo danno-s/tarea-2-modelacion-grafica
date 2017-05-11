@@ -51,6 +51,11 @@ while True:
         if event.type == QUIT:
             exit()
 
+        keys = pygame.key.get_pressed()
+
+        if keys[K_ESCAPE]:
+            exit()
+
     if state == "main_menu":
         title_text = big_font.render("Square Knight", 1, COLOR_WHITE)
         begin_text = font.render("Aprieta espacio para comenzar", 1,
