@@ -3,6 +3,8 @@ Curso: Modelación y Computación Gráfica para Ingenieros. Semestre Otoño 2017
 
 Autor: Daniel Soto
 
+Este proyecto utiliza sonidos obtenidos de https://www.freesound.org/, fonts obtenidas de http://www.1001freefonts.com/, la clase centered_figure.py; creada por Pablo Pizarro P. (https://github.com/ppizarror/pygame-toolbox), las librerías nativas de Python y las de pygame y shapely.
+
 ## Instrucciones de Instalación
 El juego utiliza Python 2.7 o mayor y las librerías de pygame y shapely.
 1. Si python no está instalado, instalar versión >= 2.7 desde la página https://www.python.org/downloads/.

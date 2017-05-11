@@ -22,21 +22,14 @@ pygame.display.set_caption("Square Knight")
 # carga de assets
 sound = Sounds()
 level = Level(surface, COLOR_BROWN)
-font = pygame.font.Font('fonts/VCR_OSD_MONO.ttf', 40)
-big_font = pygame.font.Font('fonts/VCR_OSD_MONO.ttf', 80)
-
-
-# carga de modelos
-player = Player(surface, sounds=sound, level=level)
-enemies = []
-powerups = []
+font = pygame.font.Font(FONT, 40)
+big_font = pygame.font.Font(FONT, 80)
 
 # reloj del juego
 clock = pygame.time.Clock()
 
+init = True
 counter = 0
-enemy_prob = 1
-power_up_prob = 0.1
 score = 0
 state = "main_menu"
 
@@ -70,16 +63,23 @@ while True:
             state = "playing"
 
     if state == "playing":
-        if random() * 100 < enemy_prob and len(enemies) < 5:
+        # carga de modelos
+        if init:
+            player = Player(surface, sounds=sound, level=level)
+            enemies = []
+            powerups = []
+            init = False
+
+        if random() * 100 < ENEMY_PROB and len(enemies) < 5:
             enemies += [Enemy(surface, sounds=sound, level=level,
                         player=player)]
-            enemy_prob = 1
+            ENEMY_PROB = 1
 
-        if random() * 100 < power_up_prob:
+        if random() * 100 < POWER_UP_PROB:
             r = random() * 100
-            if r < 50:
+            if r < HEAL_PROB:
                 color_index = 0
-            elif r < 80:
+            elif r < HEAL_PROB + ATK_PROB:
                 color_index = 1
             else:
                 color_index = 2
@@ -123,6 +123,8 @@ while True:
                 enemy.get_i_frames()
                 if player.sword.get_atk_direction() == "down":
                     player.jump(JUMP_SPEED/2.0)
+                elif player.sword.get_atk_direction() == "up":
+                    enemy.jump(JUMP_SPEED/3.0)
 
             if enemy.get_hp() <= 0:
                 enemies.remove(enemy)
@@ -131,7 +133,7 @@ while True:
             if enemy.hit_player():
                 player.recieve_damage()
                 player.get_i_frames()
-                score = max(score-50, 0)
+                score = max(score - 10, 0)
 
         for powerup in powerups:
             if powerup.figure.intersect(player.figure):
@@ -168,13 +170,18 @@ while True:
         game_over_text = big_font.render("Game Over!", 1, COLOR_WHITE)
         retry_text = font.render("Aprieta 'r' para jugar de nuevo", 1,
                                  COLOR_WHITE)
+        final_score_text = font.render("FINAL SCORE: " + str(score), 1,
+                                       COLOR_WHITE)
         surface.fill(COLOR_BLACK)
         surface.blit(game_over_text, (425, 300))
+        surface.blit(final_score_text, (475, 450))
         surface.blit(retry_text, (525, 650))
 
         keys = pygame.key.get_pressed()
 
         if keys[K_r]:
             state = "playing"
+            score = 0
+            init = True
 
     pygame.display.flip()

@@ -40,7 +40,6 @@
 \usepackage{sectsty}                  % Cambia el estilo de los títulos
 \usepackage{selinput}                 % Compatibilidad con acentos
 \usepackage{setspace}                 % Cambia el espacio entre líneas
-\usepackage{subfig}                   % Permite agrupar imágenes
 \usepackage{tikz}                     % Permite dibujar
 \usepackage{ulem}                     % Permite tachar, subrayar, etc
 \usepackage{url}                      % Permite añadir enlaces
@@ -57,3 +56,13 @@
 \equal{\showborderonlinks}{false}}{   % Links sin recuadro rojo
 \usepackage[hidelinks]{hyperref}}{
 \usepackage{hyperref}}
+
+\usepackage[%
+    font={small,sf},
+    labelfont=bf,
+    format=hang,    
+    format=plain,
+    margin=0pt,
+    width=0.8\textwidth,
+]{caption}
+\usepackage[list=true]{subcaption}

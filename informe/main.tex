@@ -20,14 +20,14 @@
 \def\templateversion{3.1.3}               % Versión del template
                
 % INFORMACIÓN DEL DOCUMENTO
-\newcommand{\nombredelinforme}{Título del informe}
-\newcommand{\temaatratar}{Tema a tratar}
+\newcommand{\nombredelinforme}{Square Knight}
+\newcommand{\temaatratar}{Juego en 2 Dimensiones: Propuesta Personal.}
 \newcommand{\fecharealizacion}{\today}
 \newcommand{\fechaentrega}{14 de mayo de 2017}
 
 \newcommand{\autordeldocumento}{Nombre del autor o grupo}
-\newcommand{\nombredelcurso}{Curso}
-\newcommand{\codigodelcurso}{CO-1234}
+\newcommand{\nombredelcurso}{Modelación y Computación Gráfica para Ingenieros}
+\newcommand{\codigodelcurso}{CC-3501}
 
 \newcommand{\nombreuniversidad}{Universidad de Chile}
 \newcommand{\nombrefacultad}{Facultad de Ciencias Físicas y Matemáticas}
@@ -72,6 +72,7 @@
 
 % IMPORTACIÓN DE LIBRERÍAS
 \input{lib/imports}
+\usetikzlibrary{automata,positioning}
 
 % IMPORTACIÓN DE FUNCIONES
 \input{lib/functions}
@@ -92,15 +93,149 @@
 % RESUMEN O ABSTRACT
 \input{abstract} % Se incluye un ejemplo de resumen, se puede borrar
 
-% TABLA DE CONTENIDOS - ÍNDICE
-\input{lib/index}
-
 % CONFIGURACIONES FINALES - INICIO DE LAS SECCIONES
 \input{lib/finalconf}
 
 % ======================== INICIO DEL DOCUMENTO ========================
 \section{Introducción}
-	El problema planteado era generar un juego de acción y plataformas en dos dimensiones. El juego debía permitir al usuario controlar a un personaje con total libertad para moverse dentro de la pantalla. Este personaje debía ser capaz de moverse hacia los lados, saltar y atacar. En la escena debían aparecer enemigos al azar, los cuales tenían que ser capaces de seguir al jugador, sin importar su posisción en el nivel. Un sistema para encontrar colisiones era necesario. Al hacer y recibir daño se tenían que reproducir sonidos, al igual que al saltar.
+	El problema planteado es generar un juego de acción y plataformas en dos dimensiones. El juego debe permitir al usuario controlar a un personaje con total libertad para moverse dentro de la pantalla. Este personaje debe ser capaz de moverse hacia los lados, saltar y atacar. En la escena deben aparecer enemigos al azar, los cuales tienen que ser capaces de seguir al jugador, sin importar su posición en el nivel. Un sistema para encontrar colisiones es necesario. Al hacer y recibir daño se tienen que reproducir sonidos, al igual que al saltar. Deben haber representaciones gráficas de los puntos de vida del jugador y su puntaje, visibles durante el loop principal del juego.
+
+\section{Solución}
+	La modelación del juego fue realizada a través de las siguientes clases:
+	\renewcommand{\theenumii}{\roman{enumii}}
+	\begin{enumerate}
+		\item \verb!Platform!:
+		Esta clase modela una plataforma rectangular en el nivel. Tiene métodos para encontrar su posición relativa con respecto a cierta \verb!Entidad!.
+		\item \verb!Level!:
+		Esta clase modela un nivel con un conjunto de \verb!Plataformas!, dándoles un mismo color a todas. Incluye un método \verb!draw()! para dibujar en la vista todas las plataformas.
+		\item \verb!Entity!:
+		Ambos el jugador y los enemigos heredan de esta clase. Contiene métodos para moverse hacia la izquierda y la derecha y saltar. También actualiza la coordenada vertical con respecto al conjunto de platformas del nivel, con tal de evitar que la entidad entre a una plataforma. Para las coordenadas horizontales, esto se maneja en las métodos de movimiento lateral. Además se incluyen métodos auxiliares booleanos y de estado, para simplificar los condicionales en los métodos de esta clase. Finalmente, incluye métodos para dibujar a la entidad en la vista.
+		\begin{enumerate}
+			\item \verb!Player!:
+			Esta clase contiene métodos para atacar, booleanos auxiliares y contadores para manejar momentos de invincibilidad luego de ser golpeado. Además se almacena una instancia de la clase \verb!Sword! para manejar los ataques. También hay métodos para actualizar el estado de la entidad.
+			\item \verb!Enemy!:
+			Esta clase contiene métodos que le entregan una IA básica para ser capaz de perseguir al jugador y alcanzarlo en cualquier posición del nivel (sólo para niveles simples). También hay métodos auxiliares booleanos y para actualizar el estado de la entidad.
+		\end{enumerate}
+		\item \verb!Sword!:
+		Aquí se almacenan 4 figuras para la espada, una en cada dirección ortogonal. Se manejan aqui la duración de los ataques y en que dirección deben ser dibujados. Esto se hace con la ayuda de una clase auxiliar \verb!Attack!
+		\begin{enumerate}
+			\item \verb!Attack!:
+			Esta clase se encarga de contar las frames que dura un ataque, y las frames donde no es posible atacar luego de terminar un ataque.
+		\end{enumerate}
+		\item \verb!PowerUp!:
+		Esta clase encuentra posiciones válidas dentro del nivel para generar un power-up, y tiene un atributo que caracteriza su efecto.
+		\item \verb!Sound!:
+		Es una clase auxiliar, que carga los sonidos del juego al abrir la aplicación, y tiene métodos para reproducir sonidos específicos.
+	\end{enumerate}
+	
+	Además se usa la clase \verb!CenteredFigure!, provista por Pablo Pizarro R., en muchas de estas clases. Finalmente en el archivo \verb!constants.py! se almacenan todos los valores constantes usados en el juego, para poder alterar sus valores globalmente de manera directa.\\
+
+	Todas estas clases son usadas en conjunto en el archivo \verb!square_knight.py! para permitir la ejecución del juego. La aplicación tiene 3 estados posibles:
+	\begin{itemize}
+		\item \verb"main_menu":
+		En este estado se dibuja una Pantalla introductoria, con una instrucción para poder comenzar el juego al presionar la barra espaciadora.
+		\item \verb"playing":
+		Este estado es el loop principal del juego, donde se ejecuta la mayor parte de la lógica y se simulan los comportamientos del modelo junto al controlador, para mostrarlo en la vista.
+		\item \verb"game_over":
+		El juego cambia a este estado cuando la vida del jugador llega a 0, y muestra el high-score del jugador junto con una instrucción para jugar de nuevo.
+	\end{itemize}
+
+	En cualquier momento el jugador puede decidir cerrar la aplicación al presionar \verb!escape! o el botón del sistema para cerrar la ventana. El comportamiento de la aplicación puede ser representado mediante el siguiente diagrama de estado:
+
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[shorten >= 1pt,node distance =5cm, on grid, auto]
+			\node[state, initial]   (mainmenu) 						{\verb!main_menu!};
+			\node[state]		    (playing)  [right =of mainmenu] {\verb!playing!};
+			\node[state] 		    (gameover) [right =of playing]  {\verb!game_over!};
+			\node[state, accepting] (quit)     [below =of playing]	{\verb!quit!};
+				\path[->]
+				(mainmenu) edge 			 node {espacio}  		(playing)
+						   edge 			 node {escape} 		    (quit)
+						   edge [loop above] node {} 				()
+				(playing)  edge [bend left]  node {player.hp = 0}   (gameover)
+						   edge 			 node {escape}  		(quit)
+						   edge [loop above] node {} 				()
+				(gameover) edge [bend left]  node {r} 				(playing)
+						   edge [loop above] node {} 				()
+						   edge 			 node {escape}  		(quit);
+		\end{tikzpicture}
+		\caption{Diagrama de Estado de la Aplicación}
+	\end{figure}
+
+\section{Dificultades}
+	Las mayores dificultades en la implementación de las clases fueron los métodos encargados de las colisiones, pues requerían lógica bastante precisa, la cual debía ser ordenada de tal manera que no se cumplieran dos condiciones simultáneamente. Pese a esto, la implementación de las colisiones con el nivel fueron bastante simplificadas gracias a la implementación de la clase \verb!Plataforma!. Además esto lo hace más flexible, pues al no ser programada a la fuerza para ciertas posiciones de las plataformas, la colisión también funciona para plataformas en distintas posiciones\footnotemark.\\
+	\footnotetext{No sirve para todas las distintas configuraciones, pues depende de el orden en el que se analizan las plataformas. Esto puede ser arreglado implementando un método en la clase Level que retorne la plataforma más cercana a la entidad.}
+	
+	La colisión entre entidades y power-ups no fue mayor dificultad, gracias al método \verb+intersects()+ incluido en CenteredFigure, el cual se basa en el método provisto por pygame para intersectar polígonos.\\
+
+	Otra de las dificultades notables fue la implementación de la IA de los enemigos. Esto es gracias a que hay muchos casos donde el enemigo tiene que llegar al jugador, pero establecer un camino previamente es difícil. Este problema se solucionó con la ayuda de los método auxiliares incluidos en la clase \verb!Enemy!, los que facilitaron diferenciar los distintos casos para los cuales eran necesarios distintos comportamientos del enemigo.\\
+
+	Ambos este caso y el de la colisión con el nivel fueron complejos pues existían muchos casos de borde, para los cuales había que refinar los condicionales para que funcionaran debidamente.\\
+
+	Por último, el conteo de la duración de los ataques fue un poco compleja al comienzo, por lo que se utilizó la clase auxiliar \verb!Attack!, cuyo único trabajo era contar estos fotogramas y retornar valores booleanos para saber en que parte del ataque se encontraba el jugador.\\
+
+	En general, no se encontraron dificultades peores a estas durante la implementación de la tarea. Esto es principalmente gracias a la utilización de la programación orientada a objetos, pues permitió modularizar el problema en segmentos simples y fácilmente modificables. Esto además permite extender este proyecto en el futuro con mayor facilidad.
+
+\section{Conclusiones}
+	La programación orientada a objetos ayudó inmensamente a la implementación de los modelos, lo que permitió hacer un juego fácilmente expandible en el futuro. El resultado final es un juego con todas las funciones esperadas, aparece la vida y el puntaje en pantalla, el jugador se puede mover libremente y atacar en la dirección que se desee. Los enemigos siguen al jugador por cualquier lugar del nivel y el jugador recibe daño al ser tocado por un enemigo. Los enemigos reciben daño\footnote{Su movimiento también es alterado.} al ser golpeados por la espada del jugador. Cuando una entidad es golpeada, esta recibe frames de invincibilidad, donde no puede recibir daño. Existen 3 tipos de power-ups:
+	\begin{enumerate}
+		\item Heal (Verde):
+		Aumenta la vida del jugador en 1. No tiene máximo. Probabilidad 50\%.
+		\item Attack Up (Rojo):
+		Aumenta el ataque del jugador en 0.5 puntos. Tiene máximo de 4. Probabilidad 30\%.
+		\item Range Up (Azul):
+		Aumenta el tamaño de la espada del jugador con un factor de escala igual a $1.1$. Se aplica multiplicativamente. No tiene máximo, pero al aumentar el tamaño, comienza a dejar un punto ciego cerca del jugador. Probabilidad 20\%.
+	\end{enumerate}
+
+	El modelo MVC utilizado para ordenar la estructura del juego también fue bastante útil, pues proporcionaba un esquema claro de cómo se generan los fotogramas y cómo se debe interpretar el input del usuario.\\
+
+	A continuación se muestran capturas de pantalla del juego en ejecución.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_01}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_02}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_03}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_04}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_05}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_06}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_07}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_08}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_09}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_10}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.45\textwidth]{images/screencap_11}
+		\hfill
+		\includegraphics[width=0.45\textwidth]{images/screencap_12}
+		\caption{Capturas del juego en acción.}
+	\end{figure}
+
+	Para probar el juego, por favor leer \verb!README.md!.
 
 % FIN DEL DOCUMENTO
 \end{document}

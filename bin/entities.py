@@ -121,9 +121,6 @@ class Entity(object):
 
         return False
 
-    def set_last_move(self, direction):
-        self.last_move = direction
-
     def get_last_move(self):
         return self.last_move
 
@@ -168,6 +165,8 @@ class Player(Entity):
 
     def draw(self):
         # dibuja al jugador y su espada si esta atacando en pantalla
+        if self.i_frames % 2 == 1:
+            return
         self.figure.draw()
         if self.is_attacking():
             self.sword.draw()
@@ -226,6 +225,12 @@ class Enemy(Entity):
 
         self.counter = 0
         self.i_frames = 0
+
+    def draw(self):
+        # dibuja al jugador y su espada si esta atacando en pantalla
+        if self.i_frames % 2 == 1:
+            return
+        self.figure.draw()
 
     def is_left(self, player):
         if self.center[0] + self.width / 2 < player.center[0]:
