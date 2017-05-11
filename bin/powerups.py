@@ -15,10 +15,12 @@ class PowerUp(Entity):
         self.set_center()
 
         self.y_vel = 0
-        if color == COLOR_GREEN:
+        if color == COLOR_RED:
             self.effect = "atk-up"
-        elif color == COLOR_PINK:
+        elif color == COLOR_GREEN:
             self.effect = "heal"
+        elif color == COLOR_BLUE:
+            self.effect = "range-up"
 
         self.sounds = sounds
         self.figure = CenteredFigure(

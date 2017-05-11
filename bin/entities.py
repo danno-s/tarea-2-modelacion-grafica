@@ -14,6 +14,7 @@ class Entity(object):
         self.center = center
         self.y_vel = 0
         self.jumped = False
+        self.last_move = "right"
 
         self.height = stats[0]
         self.width = stats[1]
@@ -60,6 +61,7 @@ class Entity(object):
                 break
 
     def move_right(self):
+        self.last_move = "right"
         for platform in self.platforms:
             # se salta las plataformas a la izquierda pues el movimiento no es
             # en esa dirección
@@ -75,6 +77,7 @@ class Entity(object):
         self.center[0] = min(self.center[0] + self.speed, SW - self.width / 2)
 
     def move_left(self):
+        self.last_move = "left"
         for platform in reversed(self.platforms):
             # se salta las plataformas a la derecha pues el movimiento no es
             # en esa dirección
@@ -117,6 +120,12 @@ class Entity(object):
                 return True
 
         return False
+
+    def set_last_move(self, direction):
+        self.last_move = direction
+
+    def get_last_move(self):
+        return self.last_move
 
 
 # entidad controlada por el jugador
@@ -166,12 +175,6 @@ class Player(Entity):
     def is_attacking(self):
         return self.sword.is_active() or self.sword.is_recoiling()
 
-    def set_last_move(self, direction):
-        self.last_move = direction
-
-    def get_last_move(self):
-        return self.last_move
-
     def recieve_damage(self):
         self.hp -= ENEMY_DAMAGE
         self.sounds.damage()
@@ -204,11 +207,12 @@ class Enemy(Entity):
             self.center = [SW + 50, SH - 125]
         self.y_vel = 0
         self.jumped = False
+        self.last_move = "right"
 
         self.height = stats[0]
         self.width = stats[1]
         self.hp = stats[2]
-        self.speed = stats[3]
+        self.speed = stats[3] + random() - 0.5
 
         self.platforms = level.get_platforms()
         self.figure = CenteredFigure(
@@ -238,15 +242,42 @@ class Enemy(Entity):
             return True
         return False
 
+    def is_above(self, player):
+        if self.center[1] + self.height / 2 < player.center[1] - player.height / 2:
+            return True
+        return False
+
     def update(self):
         if not self.has_i_frames():
-            if self.is_left(self.player):
-                self.move_right()
-            elif self.is_right(self.player):
-                self.move_left()
-
+            if self.is_below(self.player):
+                if abs(self.center[0] - self.player.center[0]) < 126:
+                    if self.is_left(self.player):
+                        self.move_left()
+                    elif self.is_right(self.player):
+                        self.move_right()
+                elif abs(self.center[0] - self.player.center[0]) > 152:
+                    if self.is_left(self.player):
+                        self.move_right()
+                    elif self.is_right(self.player):
+                        self.move_left()
+                elif self.on_ground():
+                    if random() < 0.2:
+                        self.jump(JUMP_SPEED * 0.75)
+            elif self.is_above(self.player) and self.on_ground():
+                if self.is_left(self.player):
+                    self.move_left()
+                elif self.is_right(self.player):
+                    self.move_right()
+            else:
+                if self.is_left(self.player):
+                    self.move_right()
+                elif self.is_right(self.player):
+                    self.move_left()
         if self.i_frames > 0:
             self.i_frames -= 1
+
+        if self.y_vel != 0:
+            self.y_vel -= 0.2
 
     def is_hit(self):
         if (

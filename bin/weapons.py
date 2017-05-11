@@ -20,9 +20,10 @@ class Attack(object):
             self.recoil = True
             self.ticks -= 1
         elif self.recoil and self.ticks > 0:
-            self.ticks -= 1
-        elif self.recoil and self.ticks == 0:
+            self.ticks -= 0.3
+        elif self.recoil and self.ticks <= 0:
             self.recoil = False
+            self.ticks = 0
 
     def is_active(self):
         return self.active
@@ -84,20 +85,23 @@ class Sword(object):
             if direction == "up":
                 self.figure_up.draw()
                 self.current_figure = self.figure_up
-                return
-            if direction == "left":
+            elif direction == "left":
                 self.figure_left.draw()
                 self.current_figure = self.figure_left
-                return
-            if direction == "down":
+            elif direction == "down":
                 self.figure_down.draw()
                 self.current_figure = self.figure_down
-                return
-            if direction == "right":
+            else:
                 self.figure_right.draw()
                 self.current_figure = self.figure_right
         else:
             self.current_figure = None
+
+    def scale(self, factor):
+        self.figure_right.scale(factor)
+        self.figure_up.scale(factor)
+        self.figure_left.scale(factor)
+        self.figure_down.scale(factor)
 
     def attack(self, direction):
         self.atk_inst.start_attack(direction)
