@@ -110,7 +110,6 @@ while True:
         player.tick()
         for enemy in enemies:
             enemy.update()
-            enemy.update_y()
 
         # checkea colisiones entre entidades
         for enemy in enemies:

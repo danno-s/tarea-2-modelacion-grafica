@@ -276,6 +276,8 @@ class Enemy(Entity):
         if self.i_frames > 0:
             self.i_frames -= 1
 
+        self.update_y()
+
         if self.y_vel != 0:
             self.y_vel -= 0.2
 
