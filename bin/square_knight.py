@@ -68,9 +68,10 @@ while True:
             player = Player(surface, sounds=sound, level=level)
             enemies = []
             powerups = []
+            enemy_limit = ENEMY_LIMIT
             init = False
 
-        if random() * 100 < ENEMY_PROB and len(enemies) < 5:
+        if random() * 100 < ENEMY_PROB and len(enemies) < enemy_limit:
             enemies += [Enemy(surface, sounds=sound, level=level,
                         player=player)]
             ENEMY_PROB = 1
@@ -129,6 +130,7 @@ while True:
             if enemy.get_hp() <= 0:
                 enemies.remove(enemy)
                 score += 100
+                enemy_limit += 1
 
             if enemy.hit_player():
                 player.recieve_damage()
@@ -139,7 +141,6 @@ while True:
             if powerup.figure.intersect(player.figure):
                 if powerup.effect == "atk-up":
                     player.sword.damage = min(4, player.sword.damage + 0.5)
-                    print(player.sword.damage)
                 elif powerup.effect == "heal":
                     player.hp += 1
                 elif powerup.effect == "range-up":

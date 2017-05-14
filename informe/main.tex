@@ -167,7 +167,7 @@
 	Las mayores dificultades en la implementación de las clases fueron los métodos encargados de las colisiones, pues requerían lógica bastante precisa, la cual debía ser ordenada de tal manera que no se cumplieran dos condiciones simultáneamente. Pese a esto, la implementación de las colisiones con el nivel fueron bastante simplificadas gracias a la implementación de la clase \verb!Plataforma!. Además esto lo hace más flexible, pues al no ser programada a la fuerza para ciertas posiciones de las plataformas, la colisión también funciona para plataformas en distintas posiciones\footnotemark.\\
 	\footnotetext{No sirve para todas las distintas configuraciones, pues depende de el orden en el que se analizan las plataformas. Esto puede ser arreglado implementando un método en la clase Level que retorne la plataforma más cercana a la entidad.}
 	
-	La colisión entre entidades y power-ups no fue mayor dificultad, gracias al método \verb+intersects()+ incluido en CenteredFigure, el cual se basa en el método provisto por pygame para intersectar polígonos.\\
+	La colisión entre entidades y power-ups no fue mayor dificultad, gracias al método \verb+intersects()+ incluido en CenteredFigure, el cual se basa en el método provisto por shapely para intersectar polígonos.\\
 
 	Otra de las dificultades notables fue la implementación de la IA de los enemigos. Esto es gracias a que hay muchos casos donde el enemigo tiene que llegar al jugador, pero establecer un camino previamente es difícil. Este problema se solucionó con la ayuda de los método auxiliares incluidos en la clase \verb!Enemy!, los que facilitaron diferenciar los distintos casos para los cuales eran necesarios distintos comportamientos del enemigo.\\
 
@@ -194,44 +194,38 @@
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_01}
+		\includegraphics[width=0.30\textwidth]{images/screencap_01}
 		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_02}
+		\includegraphics[width=0.30\textwidth]{images/screencap_02}
+		\hfill
+		\includegraphics[width=0.30\textwidth]{images/screencap_03}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_03}
+		\includegraphics[width=0.30\textwidth]{images/screencap_04}
 		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_04}
+		\includegraphics[width=0.30\textwidth]{images/screencap_05}
+		\hfill
+		\includegraphics[width=0.30\textwidth]{images/screencap_06}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_05}
+		\includegraphics[width=0.30\textwidth]{images/screencap_07}
 		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_06}
+		\includegraphics[width=0.30\textwidth]{images/screencap_08}
+		\hfill
+		\includegraphics[width=0.30\textwidth]{images/screencap_09}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_07}
+		\includegraphics[width=0.30\textwidth]{images/screencap_10}
 		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_08}
-	\end{figure}
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_09}
+		\includegraphics[width=0.30\textwidth]{images/screencap_11}
 		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_10}
-	\end{figure}
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.45\textwidth]{images/screencap_11}
-		\hfill
-		\includegraphics[width=0.45\textwidth]{images/screencap_12}
+		\includegraphics[width=0.30\textwidth]{images/screencap_12}
 		\caption{Capturas del juego en acción.}
 	\end{figure}
 
