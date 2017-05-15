@@ -9,6 +9,7 @@ class Sounds(object):
         self._jump = mixer.Sound(SOUND_JUMP)
         self._damage = mixer.Sound(SOUND_DAMAGE)
         self._hit = mixer.Sound(SOUND_HIT)
+        self._attack = mixer.Sound(SOUND_ATK)
 
     def jump(self):
         # reproduce el sonido de un salto
@@ -21,3 +22,7 @@ class Sounds(object):
     def damage(self):
         # reproduce el sonido de un golpe al jugador
         self._damage.play(0)
+
+    def attack(self):
+        # reproduce el sonido de la espada moviendose
+        self._attack.play(0)

@@ -23,6 +23,7 @@ COLOR_WHITE = (255, 255, 255)
 SOUND_JUMP = "sound/jump.wav"
 SOUND_DAMAGE = "sound/damage.wav"
 SOUND_HIT = "sound/hit.wav"
+SOUND_ATK = "sound/attack.wav"
 FONT = "fonts/VCR_OSD_MONO.ttf"
 
 # FPS

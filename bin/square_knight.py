@@ -44,11 +44,12 @@ while True:
         if event.type == QUIT:
             exit()
 
-        keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed()
 
-        if keys[K_ESCAPE]:
-            exit()
+    if keys[K_ESCAPE]:
+        exit()
 
+    # estado inicial, menu principal
     if state == "main_menu":
         title_text = big_font.render("Square Knight", 1, COLOR_WHITE)
         begin_text = font.render("Aprieta espacio para comenzar", 1,
@@ -62,6 +63,7 @@ while True:
         if keys[K_SPACE]:
             state = "playing"
 
+    # estado principal, juego
     if state == "playing":
         # carga de modelos
         if init:
@@ -118,6 +120,7 @@ while True:
             enemy.update()
 
         # checkea colisiones entre entidades
+        # enemigos
         for enemy in enemies:
             if enemy.is_hit():
                 enemy.recieve_damage()
@@ -137,6 +140,7 @@ while True:
                 player.get_i_frames()
                 score = max(score - 10, 0)
 
+        # powerups
         for powerup in powerups:
             if powerup.figure.intersect(player.figure):
                 if powerup.effect == "atk-up":
@@ -147,6 +151,7 @@ while True:
                     player.sword.scale(1.1)
                 powerups.remove(powerup)
 
+        # jugador
         if player.get_hp() <= 0:
             state = "game_over"
 
@@ -163,10 +168,11 @@ while True:
         hp_text = font.render("HP: " + str(player.get_hp()), 1, COLOR_BLACK)
         score_text = font.render("SCORE: " + str(score), 1, COLOR_BLACK)
 
-        # voltea a pantalla
+        # voltea texto a pantalla
         surface.blit(hp_text, (20, 11))
         surface.blit(score_text, (SW - 300, 11))
 
+    # estado de game over
     elif state == "game_over":
         game_over_text = big_font.render("Game Over!", 1, COLOR_WHITE)
         retry_text = font.render("Aprieta 'r' para jugar de nuevo", 1,
@@ -174,6 +180,8 @@ while True:
         final_score_text = font.render("FINAL SCORE: " + str(score), 1,
                                        COLOR_WHITE)
         surface.fill(COLOR_BLACK)
+
+        # voltea texto a pantalla
         surface.blit(game_over_text, (425, 300))
         surface.blit(final_score_text, (475, 450))
         surface.blit(retry_text, (525, 650))
@@ -185,4 +193,5 @@ while True:
             score = 0
             init = True
 
+    # muestra en pantalla
     pygame.display.flip()

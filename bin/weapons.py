@@ -1,4 +1,5 @@
 # coding: UTF-8
+# Archivo que almacena las clases relacionadas con ataques
 from centered_figure import CenteredFigure
 from constants import *
 
@@ -13,6 +14,7 @@ class Attack(object):
         self.player = player
 
     def tick(self):
+        # actualiza cómo debería cambia el estado del ataque cada frame
         if self.active and self.ticks < self.player.swing:
             self.ticks += 1
         elif self.active and self.ticks == self.player.swing:
@@ -26,18 +28,23 @@ class Attack(object):
             self.ticks = 0
 
     def is_active(self):
+        # retorna True si está atacando
         return self.active
 
     def is_recoiling(self):
+        # retorna True si está descansando luego de un ataque
         return self.recoil
 
     def can_attack(self):
+        # retorna not is_active
         return not (self.active or self.recoil)
 
     def get_direction(self):
+        # retorna dirección del ataque
         return self.direction
 
     def start_attack(self, direction):
+        # comienza una instancia de ataque
         self.active = True
         self.direction = direction
 
@@ -80,6 +87,7 @@ class Sword(object):
         self.damage = SWORD_DAMAGE
 
     def draw(self):
+        # dibuja la espada según la dirección del ataque
         if self.is_active() and not self.is_recoiling():
             direction = self.atk_inst.get_direction()
             if direction == "up":
@@ -98,25 +106,32 @@ class Sword(object):
             self.current_figure = None
 
     def scale(self, factor):
+        # aumenta el tamaño de la espada según el factor entregado
         self.figure_right.scale(factor)
         self.figure_up.scale(factor)
         self.figure_left.scale(factor)
         self.figure_down.scale(factor)
 
     def attack(self, direction):
+        # comienza un ataque
         self.atk_inst.start_attack(direction)
 
     def can_attack(self):
+        # retorna True si es válido atacar
         return self.atk_inst.can_attack()
 
     def is_active(self):
+        # retorna True si se está atacando 
         return self.atk_inst.is_active()
 
     def is_recoiling(self):
+        # retorna True si se está descansando luego de un ataque
         return self.atk_inst.is_recoiling()
 
     def get_atk_direction(self):
+        # retorna la dirección del ataque
         return self.atk_inst.get_direction()
 
     def tick(self):
+        # actualiza el estado del ataque cada frame
         self.atk_inst.tick()

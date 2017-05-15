@@ -19,6 +19,7 @@ class Level(object):
                           Platform(-10, 0, 0, SW, "cieling")]
 
     def draw(self):
+        # dibuja en pantalla el nivel
         for plat_index, platform in enumerate(self.platforms):
             poly(self._surface, self.color,
                  [(platform.left, platform.top),
@@ -26,6 +27,6 @@ class Level(object):
                   (platform.right, platform.bottom),
                   (platform.left, platform.bottom)])
 
-    #  retornn los límites de las plataformas y el suelo
     def get_platforms(self):
+        # retorna lista con las plataformas en el nivel
         return self.platforms

@@ -1,5 +1,5 @@
 # coding: UTF-8
-# clase que define a la entidad
+# Clase que define a los jugadores y enemigos
 from centered_figure import CenteredFigure
 from constants import *
 from sounds import Sounds
@@ -37,6 +37,7 @@ class Entity(object):
         self.figure.draw()
 
     def update_y(self):
+        # calcula donde debiese estar la entidad en el eje y
         if self.on_ground() and not self.jumped:
             self.y_vel = 0
         elif self.on_ground() and self.jumped and self.y_vel >= 0:
@@ -61,6 +62,8 @@ class Entity(object):
                 break
 
     def move_right(self):
+        # procesa el movimiento hacia la derecha, incluyendo colisiones con
+        # plataformas
         self.last_move = "right"
         for platform in self.platforms:
             # se salta las plataformas a la izquierda pues el movimiento no es
@@ -77,6 +80,8 @@ class Entity(object):
         self.center[0] = min(self.center[0] + self.speed, SW - self.width / 2)
 
     def move_left(self):
+        # procesa el movimiento hacia la izquierda, incluyendo colisiones con
+        # plataformas
         self.last_move = "left"
         for platform in reversed(self.platforms):
             # se salta las plataformas a la derecha pues el movimiento no es
@@ -144,6 +149,7 @@ class Player(Entity):
         self.hp = stats[2]
         self.speed = stats[3]
         self.swing = stats[4]
+        self.i_frames = 0
 
         # variables que almacenan propiedades de la entidad
         self.sounds = sounds
@@ -156,11 +162,9 @@ class Player(Entity):
             pygame_surface=surface)
         self.sword = Sword(self)
 
-        self.counter = 0  # debugging purposes
-        self.i_frames = 0
-
     def attack(self, direction):
-        # Sounds.attack()
+        # maneja el ataque del jugador
+        self.sounds.attack()
         self.sword.attack(direction)
 
     def draw(self):
@@ -172,26 +176,32 @@ class Player(Entity):
             self.sword.draw()
 
     def is_attacking(self):
+        # retorna valor booleano sobre el estado de ataque del jugador
         return self.sword.is_active() or self.sword.is_recoiling()
 
     def recieve_damage(self):
+        # actualiza los stats del jugador para que reciba daño
         self.hp -= ENEMY_DAMAGE
         self.sounds.damage()
 
     def tick(self):
+        # actualiza el ataque y estado de invincibilidad del jugador
         self.sword.tick()
         if self.i_frames > 0:
             self.i_frames -= 1
 
     def get_i_frames(self):
+        # le da al jugador una corta invincibilidad
         self.i_frames = PLAYER_I_FRAMES
 
     def has_i_frames(self):
+        # retorna valor booleano sobre el estado de invincibilidad del jugador
         if self.i_frames > 0:
             return True
         return False
 
     def get_hp(self):
+        # retorna puntos de vida del jugador
         return self.hp
 
 
@@ -200,6 +210,8 @@ class Enemy(Entity):
                  level=None, sounds=None, stats=[ENEMY_HEIGHT,
                  ENEMY_WIDTH, ENEMY_HP, ENEMY_WALK_SPEED],
                  player=None):
+
+        # variables relacionadas con el movimiento
         if random() < 0.5:
             self.center = [-50, SH - 125]
         else:
@@ -208,11 +220,14 @@ class Enemy(Entity):
         self.jumped = False
         self.last_move = "right"
 
+        # variables relacionadas con los stats
         self.height = stats[0]
         self.width = stats[1]
         self.hp = stats[2]
         self.speed = stats[3] + random() - 0.5
+        self.i_frames = 0
 
+        # variables relacionadas con el nivel
         self.platforms = level.get_platforms()
         self.figure = CenteredFigure(
             [(-self.width / 2, self.height / 2),
@@ -223,9 +238,6 @@ class Enemy(Entity):
         self.player = player
         self.sounds = sounds
 
-        self.counter = 0
-        self.i_frames = 0
-
     def draw(self):
         # dibuja al jugador y su espada si esta atacando en pantalla
         if self.i_frames % 2 == 1:
@@ -233,26 +245,34 @@ class Enemy(Entity):
         self.figure.draw()
 
     def is_left(self, player):
+        # valor booleano que retorna True si el enemigo está a la izquierda del
+        # jugador
         if self.center[0] + self.width / 2 < player.center[0]:
             return True
         return False
 
     def is_right(self, player):
+        # valor booleano que retorna True si el enemigo está a la derecha del
+        # jugador
         if self.center[0] - self.width / 2 > player.center[0]:
             return True
         return False
 
     def is_below(self, player):
+        # valor booleano que retorna True si el enemigo está bajo el jugador
         if self.center[1] - self.height / 2 > player.center[1] + player.height / 2:
             return True
         return False
 
     def is_above(self, player):
+        # valor booleano que retorna True si el enemigo está sobre el jugador
         if self.center[1] + self.height / 2 < player.center[1] - player.height / 2:
             return True
         return False
 
     def update(self):
+        # función que decide adonde debiese moverse el enemigo para alcanzar al
+        # jugador
         if not self.has_i_frames():
             if self.is_below(self.player):
                 if abs(self.center[0] - self.player.center[0]) < 126:
@@ -287,6 +307,8 @@ class Enemy(Entity):
             self.y_vel -= 0.2
 
     def is_hit(self):
+        # valor booleano que retorna True si el enemigo colisiona con la espada
+        # del jugador
         if (
             self.figure.intersect(self.player.sword.current_figure) and
             not self.has_i_frames()
@@ -295,6 +317,8 @@ class Enemy(Entity):
         return False
 
     def hit_player(self):
+        # valor booleano que retorna True si el enemigo colisiona con el
+        # jugador
         if (
             self.figure.intersect(self.player.figure) and
             not self.player.has_i_frames()
@@ -303,16 +327,20 @@ class Enemy(Entity):
         return False
 
     def recieve_damage(self):
+        # actualiza los stats del enemigo para que este reciba daño
         self.hp -= self.player.sword.damage
         self.sounds.hit()
 
     def get_i_frames(self):
+        # le entrega una corta invincibilidad al enemigo
         self.i_frames = ENEMY_I_FRAMES
 
     def has_i_frames(self):
+        # valor booleano que retorna True si el enemigo es invencible
         if self.i_frames > 0:
             return True
         return False
 
     def get_hp(self):
+        # retorna puntos de vida del enemigo
         return self.hp

@@ -31,6 +31,7 @@ class PowerUp(Entity):
             pygame_surface=surface)
 
     def set_center(self):
+        # elige un centro al azar válido para el power-up
         done = False
         while(not done):
             self.center = [random() * SW, random() * SH]
